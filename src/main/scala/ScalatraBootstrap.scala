@@ -1,17 +1,26 @@
 import javax.servlet.ServletContext
 
-import com.j.cotroller.FlowersController
+import com.j.cotroller.{FlowersController, MzController}
 import com.j.filter.MyFilter
+import com.j.models.Table
+import io.getquill.{MysqlJdbcContext, SnakeCase}
 import org.scalatra.LifeCycle
 
-class ScalatraBootstrap extends LifeCycle {
+class ScalatraBootstrap extends LifeCycle{
 
   override def init(context: ServletContext) {
     context.mount (new FlowersController, "/flower/*")
+    context.mount (new MzController, "/mz/*")
     context.mount (new MyFilter, "/*")
 
 
   }
+
+  override  def destroy(context :ServletContext){
+    super.destroy(context)
+    //closeDbConnection()
+  }
+
 
 
   def initParam(context: ServletContext): Unit ={

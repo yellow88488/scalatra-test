@@ -1,8 +1,6 @@
 package com.j.filter
 
-import org.json4s.{DefaultFormats, Formats}
-import org.scalatra.json.JacksonJsonSupport
-import org.scalatra.{MethodOverride, ScalatraFilter}
+import org.scalatra.{ScalatraFilter}
 import org.slf4j.LoggerFactory
 
 /**

@@ -29,3 +29,4 @@ Why Apache Maven? So that your Scalatra project plays nice with your existing Ma
 4. Go to http://localhost:8080/flower/all  
 
 Learn more about [Scalatra](http://www.scalatra.org/)
+Learn more about [quill](https://github.com/getquill/quill)

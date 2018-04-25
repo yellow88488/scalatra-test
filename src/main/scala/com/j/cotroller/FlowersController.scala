@@ -22,13 +22,14 @@ class FlowersController extends ScalatraServlet with JacksonJsonSupport{
 
   get("/all"){
     logger.info("all")
-    FlowerData.all
+    val s = FlowerData.all
+    s
   }
 
   get("/getName"){
    // val name =params("name")
     val name =params.getOrElse("name","black")// 如果没有name参数的情况
-    Flower(name,30)
+    Flower(name,30,3)
   }
 
 
