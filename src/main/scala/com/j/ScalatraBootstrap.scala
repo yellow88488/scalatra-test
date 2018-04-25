@@ -1,9 +1,9 @@
+package com.j
+
 import javax.servlet.ServletContext
 
 import com.j.cotroller.{FlowersController, MzController}
 import com.j.filter.MyFilter
-import com.j.models.Table
-import io.getquill.{MysqlJdbcContext, SnakeCase}
 import org.scalatra.LifeCycle
 
 class ScalatraBootstrap extends LifeCycle{

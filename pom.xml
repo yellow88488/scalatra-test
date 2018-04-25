@@ -17,7 +17,7 @@
             <groupId>org.scalatra</groupId>
             <artifactId>scalatra_2.11</artifactId>
             <version>${scalatra.version}</version>
-            <scope>compile</scope>
+           
             <exclusions>
                 <exclusion>
                     <groupId>org.scala-lang</groupId>
@@ -29,7 +29,7 @@
             <groupId>org.scalatra</groupId>
             <artifactId>scalatra-scalate_2.11</artifactId>
             <version>${scalatra.version}</version>
-            <scope>compile</scope>
+           
             <exclusions>
                 <exclusion>
                     <groupId>org.scala-lang</groupId>
@@ -41,25 +41,25 @@
             <groupId>org.scalatra</groupId>
             <artifactId>scalatra-json_2.11</artifactId>
             <version>${scalatra.version}</version>
-            <scope>compile</scope>
+           
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.json4s/json4s-jackson -->
         <dependency>
             <groupId>org.json4s</groupId>
             <artifactId>json4s-jackson_2.11</artifactId>
             <version>3.5.2</version>
+           
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty.orbit</groupId>
             <artifactId>javax.servlet</artifactId>
             <version>3.0.0.v201112011016</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
             <version>9.0.4.v20130625</version>
-            <scope>compile</scope>
+           
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -71,20 +71,20 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>2.11.11</version>
-            <scope>compile</scope>
+           
         </dependency>
         <dependency>
             <groupId>io.getquill</groupId>
             <artifactId>quill-jdbc_2.11</artifactId>
             <version>2.4.2</version>
-            <scope>compile</scope>
+           
         </dependency>
 
        <!-- <dependency>
             <groupId>com.github.aselab</groupId>
             <artifactId>scala-activerecord_2.11</artifactId>
             <version>0.4.0</version>
-            <scope>compile</scope>
+           
             <exclusions>
                <exclusion>
                    <groupId>org.scala-lang</groupId>
@@ -98,15 +98,38 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.38</version>
-            <scope>compile</scope>
+           
         </dependency>
 
     </dependencies>
-
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+            <!-- 如果不指定ID，默认是本地环境-->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>prod</env>
+            </properties>
+        </profile>
+    </profiles>
     <build>
         <finalName>scalatra-maven-prototype</finalName>
         <sourceDirectory>src/main/scala</sourceDirectory>
-        <!--<testSourceDirectory>src/test/scala</testSourceDirectory>-->
+        <!--<testSourceDirectory>env.testtest/scala</testSourceDirectory>-->
         <plugins>
             <plugin>
                 <!-- see http://davidb.github.com/scala-maven-plugin -->
@@ -141,25 +164,21 @@
                     </includes>
                 </configuration>
             </plugin>
+
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.0.4.v20130625</version>
+                <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <stopKey>stop</stopKey>
-                    <stopPort>9999</stopPort>
-                    <scanIntervalSeconds>1</scanIntervalSeconds>
-                    <contextXml>${project.basedir}/src/main/resources/jetty-context.xml</contextXml>
-                    <webApp>
-                        <contextPath>/</contextPath>
-                    </webApp>
-                    <connectors>
-                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>8080</port>
-                            <maxIdleTime>60000</maxIdleTime>
-                        </connector>
-                    </connectors>
+                    <descriptor>src/main/assembly/assembly.xml</descriptor>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

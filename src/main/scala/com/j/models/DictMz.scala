@@ -1,6 +1,4 @@
 package com.j.models
-import com.j.db.DbContext.ctx._
-import com.j.models.DictMz
 /**
   * Created by jufeng on 2018/4/24.
   * Model implementation:

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+    <id>assembly</id>
+    <formats>
+        <format>dir</format>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <!--需要包含的文件与输出的路径-->
+        <fileSet>
+            <directory>src/main/assembly/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+            <fileMode>0755</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory>/conf</outputDirectory>
+            <!-- 去除需要多环境配置的文件-->
+            <excludes>
+                <exclude>application.properties</exclude>
+                <exclude>conf.properties</exclude>
+                <exclude>env/*</exclude>
+            </excludes>
+        </fileSet>
+        <!--多环境配置-->
+        <fileSet>
+            <!--${env} 可以获取打包命令里的参数-->
+            <directory>src/main/resources/env/${env}/</directory>
+            <outputDirectory>conf</outputDirectory>
+            <fileMode>0644</fileMode>
+        </fileSet>
+        <!-- <fileSet>
+             &lt;!&ndash; target目录下的jar包 &ndash;&gt;
+             <directory>${project.build.directory}</directory>
+             <outputDirectory>/</outputDirectory>
+             <includes>
+                 <include>*.jar</include>
+             </includes>
+         </fileSet>-->
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <!-- <scope>runtime</scope>
+             <excludes>
+                 <exclude>${groupId}:${artifactId}</exclude>
+             </excludes>-->
+        </dependencySet>
+    </dependencySets>
+</assembly>

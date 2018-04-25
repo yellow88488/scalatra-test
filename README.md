@@ -2,7 +2,7 @@
 
 Updated to run against Scalatra 2.6.3 and Scala 2.6.3
 
-Also uses the new recommended ScalatraBootstrap/Lifecyle
+Also uses the new recommended com.j.ScalatraBootstrap/Lifecyle
 
 
 scalatra-maven-prototype is a port of [scalatra-sbt-prototype](https://github.com/scalatra/scalatra-sbt-prototype) as an Apache Maven project.
